@@ -96,6 +96,7 @@ def genRandomCyclicNodeListWithIndex():
     cur = l.head
     created = {}
     answer = None
+    i = 0
     while i < size:
         val = randint(0, 100)
         node = ListNode(val)
@@ -109,6 +110,7 @@ def genRandomCyclicNodeListWithIndex():
         if i == size-1:  # 随机选择结点创建环
             answer = choice(list(created.keys()))
             cur.next = created.get(answer)
+        i += 1
     return l.head, answer
 
 
