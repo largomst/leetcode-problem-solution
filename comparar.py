@@ -32,20 +32,6 @@ class List:
             self.head = new
 
 
-class Solution:
-    def hasCycle(self, head: 'ListNode') -> bool:
-        cur = head
-        visited = set()
-        found = False
-        while cur:
-            if cur in visited:
-                found = True
-                break
-            visited.add(cur)
-            cur = cur.next
-        return found
-
-
 def genRandomNodeList():
     l = List()
     size = randint(0, 100)
@@ -86,6 +72,46 @@ def genRandomCyclicNodeList():
     return l.head, True
 
 
+def genRandomNodeListWithIndex():
+    l = List()
+    size = randint(0, 100)
+    cur = l.head
+    i = 0
+    while i < size:
+        val = randint(0, 100)
+        node = ListNode(val)
+        if cur == None:
+            cur = node
+            l.head = cur
+        else:
+            cur.next = node
+            cur = cur.next
+        i += 1
+    return l.head, None
+
+
+def genRandomCyclicNodeListWithIndex():
+    l = List()
+    size = randint(1, 100)
+    cur = l.head
+    created = {}
+    answer = None
+    while i < size:
+        val = randint(0, 100)
+        node = ListNode(val)
+        created[node] = node
+        if cur == None:
+            cur = node
+            l.head = cur
+        else:
+            cur.next = node
+            cur = cur.next
+        if i == size-1:  # 随机选择结点创建环
+            answer = choice(list(created.keys()))
+            cur.next = created.get(answer)
+    return l.head, answer
+
+
 def hasCycleComparar(func, times=500_000):
     gen = choice([genRandomCyclicNodeList, genRandomNodeList])
     correct = 0
@@ -95,7 +121,3 @@ def hasCycleComparar(func, times=500_000):
         if func(l) == r:
             correct += 1
     print('Correct rate:', correct / times*100, '%')
-
-
-if __name__ == '__main__':
-    hasCycleComparar(Solution().hasCycle)
