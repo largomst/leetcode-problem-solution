@@ -14,24 +14,18 @@
 
 class Solution:
     def removeElements(self, head: ListNode, val: int) -> ListNode:
-        if not head:
-            return None
-
-        prev = None
-        cur = head
-        while cur:
-            if cur.val == val:
-                if prev == None:
-                    head = head.next
-                    cur = head
-                else:
-                    prev.next = cur.next
-                    cur = prev.next
+        dummy = ListNode()
+        dummy.next = head
+        prev = dummy
+        while head:
+            if head.val == val:
+                prev.next = head.next
+                head = head.next
             else:
-                prev = cur
-                cur = cur.next
+                prev = head
+                head = head.next
 
-        return head
+        return dummy.next
 
 
 # @lc code=end
