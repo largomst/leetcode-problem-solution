@@ -5,21 +5,26 @@
 #
 
 from typing import List
-from urllib import response
 # @lc code=start
 
 
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         result = []
+        stack = []
         for num in nums1:
-            index = nums2.index(num)
-            for i in range(index, len(nums2)):
-                if nums2[i] > num:
-                    result.append(nums2[i])
-                    break
-            else:
-                result.append(-1)
+            found = False
+            max = -1
+            while nums2 and not found:
+                top = nums2.pop()  # nums2 作为一个栈，取栈顶元素
+                if top > num:
+                    max = top
+                if top == num:
+                    found = True
+                stack.append(top)
+            while stack:
+                nums2.append(stack.pop())
+            result.append(max)
         return result
 
 
