@@ -10,13 +10,10 @@ from typing import List
 
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        n1 = len(nums1)
-        n2 = len(nums2)
-
         result = []
         for x in nums1:
             index = nums2.index(x)
-            for i in range(index+1, n2):
+            for i in range(index, len(nums2)):
                 if nums2[i] > x:
                     result.append(nums2[i])
                     break
