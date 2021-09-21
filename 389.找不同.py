@@ -8,23 +8,17 @@
 from collections import Counter
 
 
-def counter(s: str) -> dict:
-    hashmap = {}
-    for c in s:
-        if hashmap.get(c, None):
-            hashmap[c] += 1
-        else:
-            hashmap[c] = 1
-    return hashmap
-
-
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
-        hashmap_s = counter(s)
-        hashmap_t = counter(t)
-        for k, _ in hashmap_s.items():
-            hashmap_t[k] -= hashmap_s[k]
-        for k, v in hashmap_t.items():
+        hashmap = {}
+        for c in t:
+            if hashmap.get(c, None):
+                hashmap[c] += 1
+            else:
+                hashmap[c] = 1
+        for c in s:
+            hashmap[c] -= 1
+        for k, v in hashmap.items():
             if v == 1:
                 return k
 
