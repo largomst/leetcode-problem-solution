@@ -6,6 +6,7 @@
 
 # @lc code=start
 
+
 class MyHashSet:
 
     def __init__(self):
@@ -16,10 +17,11 @@ class MyHashSet:
         self.slots = [None]*self.size
 
     def add(self, key: int) -> None:
-        hash = self._hash(key)
-        while self.slots[hash] and self.slots[hash] != key:
-            hash = self._rehash(hash)
-        self.slots[hash] = key
+        if not self.contains(key):
+            hash = self._hash(key)
+            while self.slots[hash] and self.slots[hash] != key:
+                hash = self._rehash(hash)
+            self.slots[hash] = key
 
     def remove(self, key: int) -> None:
         if self.contains(key):
