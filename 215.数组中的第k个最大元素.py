@@ -28,13 +28,14 @@ class Solution:
         n = len(nums)
         for i in range(n-1, -1, -1):
             heapify(nums, i, n)
-        while k > 1:
+        while k > 0:
+            max = nums[0]
             nums[0] = nums[n-1]
             heapify(nums, 0, n)
             n -= 1
             k -= 1
 
-        return nums[0]
+        return max
 
 
 # @lc code=end
