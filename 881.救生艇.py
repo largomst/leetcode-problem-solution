@@ -11,14 +11,12 @@ class Solution:
         l = 0
         r = len(people) - 1
         count = 0
-        while l < r:
+        while l <= r:
             amount = people[l] + people[r]
             if amount <= limit:
                 l += 1
-            r -= 1
-            count += 1
-        if l == r:
-            count += 1
+            r -= 1  # 重的总是会走
+            count += 1  # 每次循环都会走一条小船
         return count
 
 
