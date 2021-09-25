@@ -7,30 +7,34 @@
 # @lc code=start
 class Solution:
     def maxVowels(self, s: str, k: int) -> int:
-        if not s:
+        if not s or len(s) < k:  # 面试时注意提问边界条件
             return 0
 
+        vowels = set('aeiou')
         result = 0
-        l = r = total = 0
-        while r < len(s) and r - l + 1 <= k:
-            # print(l-r+1)
-            if s[r] in 'aeiou':
-                total += 1
-                result = max(result, total)
-            r += 1
-        # print(total)
-        while r < len(s):
-            # print(total)
-            if s[r] in 'aeiou':
-                total += 1
-                # print(total)
-            if s[l] in 'aeiou' and l != r:
-                total -= 1
-            result = max(result, total)
-            r += 1
-            l += 1
+        count = 0
+        for i in range(k):
+            if s[i] in vowels:
+                count += 1
+            result = max(result, count)
+
+        # print(result)
+        for i in range(k, len(s)):
+            out = s[i-k]
+            in_ = s[i]
+            print(out, in_)
+            if out in vowels:
+                count -= 1
+            if in_ in vowels:
+                count += 1
+            result = max(result, count)
 
         return result
 
 
-# @lc code = end
+# @lc code=end
+# r = Solution().maxVowels('abciiidef', 3)
+# print(r)
+
+r = Solution().maxVowels('zazzzzzzz', 1)
+print(r)
