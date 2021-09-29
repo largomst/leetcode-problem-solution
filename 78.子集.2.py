@@ -15,9 +15,9 @@ class Solution:
 
         def backtrack(track, nums, start):
             global count
-            print(' '*4*count, f'args {track}, {nums}, {start}')
+            # print(' '*4*count, f'args {track}, {start}')
 
-            res.append(track[:])
+            res.append(track[:])  # 遍历过程的每个结点都要放到 res 中
 
             for i in range(start, len(nums)):
                 track.append(nums[i])
