@@ -14,10 +14,16 @@ class Solution:
         track = []
 
         def backtrack(track, nums, start):
+            global count
+            print(' '*4*count, f'args {track}, {nums}, {start}')
+
             res.append(track[:])
+
             for i in range(start, len(nums)):
                 track.append(nums[i])
+                count += 1
                 backtrack(track, nums, i + 1)
+                count -= 1
                 track.pop()
 
         backtrack(track, nums, 0)
