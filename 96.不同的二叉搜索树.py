@@ -11,11 +11,18 @@ from collections import defaultdict
 class Solution:
 
     def numTrees(self, n: int) -> int:
-        memo = defaultdict(lambda: defaultdict(int))
+        # memo = defaultdict(lambda: defaultdict(int))
+        memo = {}
 
         def count(lo, hi):
             if lo > hi:
                 return 1
+
+            if memo.get(lo) == None:
+                memo[lo] = {}
+            if memo[lo].get(hi) == None:
+                memo[lo][hi] = 0
+
             if memo[lo][hi] != 0:
                 return memo[lo][hi]
 
