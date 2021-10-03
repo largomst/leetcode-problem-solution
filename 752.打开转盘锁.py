@@ -27,7 +27,7 @@ class Solution:
                 slist[i] = chr(ord(slist[i])+1)
             return ''.join(slist)
 
-        def dfs(deadends, target):
+        def bfs(deadends, target):
             q = deque()
 
             visited = set()
@@ -57,7 +57,7 @@ class Solution:
 
                 step += 1
             return -1
-        return dfs(set(deadends), target)
+        return bfs(set(deadends), target)
 # @lc code=end
 
 
