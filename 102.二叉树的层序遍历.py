@@ -24,33 +24,25 @@ class TreeNode:
 
 
 class Solution:
-    # def levelOrder(self, root: TreeNode) -> List[List[int]]:
-    def levelOrder(self, root: TreeNode):
-        result = []
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        res = []
+        q = deque()
+        q.append(root)
+        while q:
+            tmp = []
+            size = len(q)
+            for i in range(size):
+                cur = q.popleft()
+                tmp.append(cur.val)
 
-        def traverse(root):
-            if not root:
-                return
-
-            level = 0
-            queue = deque()
-            queue.append(root)
-            while queue:
-                tmp = []
-                for _ in range(len(queue)):
-                    cur = queue.popleft()
-
-                    # 前序遍历
-
-                    if cur.left:
-                        queue.append(cur.left)
-                    if cur.right:
-                        queue.append(cur.right)
-                    tmp.append(cur.val)
-                result.append(tmp)
-
-        traverse(root)
-        return result
+                if cur.left:
+                    q.append(cur.left)
+                if cur.right:
+                    q.append(cur.right)
+            res.append(tmp)
+        return res
 
 
 # @lc code=end
