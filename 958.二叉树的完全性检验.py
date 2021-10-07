@@ -26,26 +26,18 @@ class Solution:
         def traverse(root):
             q = deque()
             q.append(root)
-            res = []
+            found = False
             while q:
-                tmp = []
                 size = len(q)
                 for i in range(size):
                     cur = q.popleft()
+                    if found and cur:
+                        return False
                     if cur == None:
-                        tmp.append('#')
+                        found = True
                         continue
-                    tmp.append(cur.val)
                     q.append(cur.left)
                     q.append(cur.right)
-                res.append(tmp)
-            found = False
-            for row in res:
-                for cur in row:
-                    if cur == '#':
-                        found = True
-                    if found and cur != '#':
-                        return False
             return True
 
         return traverse(root)
