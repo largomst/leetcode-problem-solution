@@ -12,26 +12,18 @@ inf = float('inf')
 
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        memo = {}
-
-        def dp(coins, amount):
-            if amount == 0:
-                return 0
-            if amount < 0:
-                return -1
-            if memo.get(amount):
-                return memo[amount]
-
-            res = inf
+        dp = [amount+1 for i in range(amount+1)]
+        dp[0] = 0
+        for i in range(amount+1):
             for coin in coins:
-                subProblem = dp(coins, amount - coin)
-                if subProblem == -1:
-                    continue
-                res = min(res, subProblem+1)
-
-            memo[amount] = res
-            return -1 if res == inf else res
-        return dp(coins, amount)
+                if i - coin >= 0:
+                    dp[i] = min(dp[i], dp[i-coin]+1)
+        # print(dp)
+        return -1 if dp[amount] == amount + 1 else dp[amount]
 
 
 # @lc code=end
+# r = Solution().coinChange([2], 3)
+# r = Solution().coinChange([1, 2, 3], 11)
+# r = Solution().coinChange([1, ], 0)
+r = Solution().coinChange([11, ], 10)
