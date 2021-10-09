@@ -8,11 +8,14 @@
 class Solution:
     def maxSubArray(self, nums) -> int:
         n = len(nums)
-        dp = nums[:]
+        dp_0 = nums[0]
+        res = dp_0
         for i in range(1, n):
-            dp[i] = max(dp[i], nums[i] + dp[i-1])
+            dp_i = max(nums[i], nums[i] + dp_0)
+            dp_0 = dp_i
+            res = max(res, dp_i)
 
-        return max(dp)
+        return res
 
 
 # @lc code=end
