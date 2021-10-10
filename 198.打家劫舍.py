@@ -13,15 +13,14 @@ count = 0
 class Solution:
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
-        dp = [0 for i in range(n+1)]
+        dp = [0] * (n+2)
+        dp[2] = nums[0]
         # base case
         # dp[i] 表示偷窃房屋 i 到之前房屋带来的总金额
-        dp[1] = nums[0]
-        for i in range(1, n):
-            val = nums[i]
-            dp[i+1] = max(dp[i-1]+val, dp[i])
+        for i in range(n):
+            index = i + 2
+            dp[index] = max(dp[index-2] + nums[i], dp[index-1])
         return dp[-1]
-
 
 # @lc code=end
 
