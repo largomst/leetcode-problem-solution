@@ -14,7 +14,6 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
         dp = [0] * (n+2)
-        dp[2] = nums[0]
         # base case
         # dp[i] 表示偷窃房屋 i 到之前房屋带来的总金额
         for i in range(n):
