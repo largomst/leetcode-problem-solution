@@ -12,25 +12,13 @@ count = 0
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        memo = defaultdict(lambda: defaultdict(lambda: None))
+        dp = [[1 if i == 0 or j == 0 else 0
+               for j in range(n)] for i in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[m-1][n-1]
 
-        def dfs(board, i, j):
-            if i == 0 and j == 0:
-                memo[0][0] = 1
-                return 1
-            if not (0 <= i < m and 0 <= j < n):
-                memo[i][j] = 0
-                return 0
-            if memo[i][j] != None:
-                return memo[i][j]
-
-            paths = dfs(board, i-1, j) + dfs(board, i, j-1)
-            memo[i][j] = paths
-            return paths
-        board = [[None for j in range(n)] for i in range(m)]
-        return dfs(board, m-1, n-1)
 
 # @lc code=end
-
-
-Solution().uniquePaths(3, 2)
+print(Solution().uniquePaths(3, 2))
