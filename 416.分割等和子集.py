@@ -11,30 +11,16 @@ from typing import List
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         n = len(nums)
-        choices = range(n)
-
-        res = []
-
-        def backtrack(track: set, choices: List[int]):
-            print(track)
-            sum1 = sum(nums[i] for i in track)
-            sum2 = sum(nums[i] for i in choices if i not in track)
-            if sum1 == sum2:
-                res.append(track.copy())
-                return
-
-            for choice in choices:
-                if choice in track:
-                    continue
-                track.add(choice)
-                backtrack(track, choices)
-                track.remove(choice)
-        track = set()
-        backtrack(track, choices)
-        if res:
-            return True
-        else:
+        amount = sum(nums)
+        if amount % 2 == 1:
             return False
+        target = amount // 2
+        dp = [0] * (target+1)  # dp[j] 表示容量为 j 的背包能容纳的最大数值之和。
+        dp[0] = 0  # base case
+        for i in range(n):
+            for j in range(target, nums[i]-1, -1):  # 从后向前遍历，要保证 j-nums[i] >=0
+                dp[j] = max(dp[j], dp[j-nums[i]]+nums[i])
+        return dp[target] == target
 
 
 # @lc code=end
